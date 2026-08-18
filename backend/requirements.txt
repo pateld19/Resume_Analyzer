@@ -1,7 +1,7 @@
-fastapi
-uvicorn[standard]
-google-genai
-pypdf
-python-docx
-python-multipart
-python-dotenv
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+google-genai==2.18.0
+pypdf==6.16.0
+python-docx==1.2.0
+python-multipart==0.0.32
+python-dotenv==1.2.2

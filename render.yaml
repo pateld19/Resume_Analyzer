@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: pateld19-resume-analyzer-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.1
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://pateld19-resume-analyzer-web.onrender.com
+
+  - type: web
+    name: pateld19-resume-analyzer-web
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22.23.2
+      - key: VITE_API_BASE_URL
+        value: https://pateld19-resume-analyzer-api.onrender.com

@@ -40,7 +40,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --page-bg-1: #14121f;
     --page-bg-2: #1b1730;
     --card-bg: #201c33;
@@ -68,6 +68,33 @@
   }
 }
 
+:root[data-theme="dark"] {
+  --page-bg-1: #14121f;
+  --page-bg-2: #1b1730;
+  --card-bg: #201c33;
+  --text: #b7b4cc;
+  --text-h: #f4f2ff;
+  --text-muted: #8a86a3;
+  --border: #322d4d;
+
+  --accent: #8b7bff;
+  --accent-dark: #a596ff;
+  --accent-bg: rgba(139, 123, 255, 0.16);
+
+  --success: #4ade80;
+  --success-bg: rgba(74, 222, 128, 0.14);
+  --success-border: rgba(74, 222, 128, 0.3);
+
+  --danger: #fb7185;
+  --danger-bg: rgba(251, 113, 133, 0.14);
+  --danger-border: rgba(251, 113, 133, 0.3);
+
+  --warning: #fbbf24;
+
+  --shadow-card: 0 20px 45px -20px rgba(0, 0, 0, 0.6), 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -77,6 +104,18 @@ body {
   min-height: 100svh;
   background: radial-gradient(circle at 15% 0%, var(--page-bg-2), transparent 55%),
     radial-gradient(circle at 85% 20%, var(--page-bg-2), transparent 50%), var(--page-bg-1);
+  transition: background-color 0.25s ease;
+}
+
+.card,
+.ats-category,
+.suggestion-card,
+.theme-toggle {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #root {

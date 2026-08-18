@@ -1,3 +1,6 @@
+import ATSReport from "./ATSReport";
+import TailoredSuggestions from "./TailoredSuggestions";
+
 function getScoreTier(score) {
   if (score >= 80) {
     return { color: "var(--success)", verdict: "Strong Match" };
@@ -9,7 +12,14 @@ function getScoreTier(score) {
 }
 
 export default function AnalysisResult({ result }) {
-  const { match_score, matched_skills, unmatched_skills, summary } = result;
+  const {
+    match_score,
+    matched_skills,
+    unmatched_skills,
+    summary,
+    ats_report,
+    tailored_suggestions,
+  } = result;
   const tier = getScoreTier(match_score);
 
   return (
@@ -52,6 +62,9 @@ export default function AnalysisResult({ result }) {
           </ul>
         </div>
       </div>
+
+      {ats_report && <ATSReport report={ats_report} />}
+      {tailored_suggestions && <TailoredSuggestions suggestions={tailored_suggestions} />}
     </div>
   );
 }

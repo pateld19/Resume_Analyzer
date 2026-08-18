@@ -3,6 +3,8 @@ import "./App.css";
 import ResumeUpload from "./components/ResumeUpload";
 import JobDescriptionInput from "./components/JobDescriptionInput";
 import AnalysisResult from "./components/AnalysisResult";
+import EmptyState from "./components/EmptyState";
+import ThemeToggle from "./components/ThemeToggle";
 import { analyzeResume } from "./api";
 
 function App() {
@@ -35,31 +37,41 @@ function App() {
   return (
     <div className="page">
       <div className="app">
-        <div className="header">
-          <div className="badge">📊</div>
-          <h1>Resume Analyzer</h1>
-          <p className="subtitle">
-            Upload your resume and paste a job description to see how well you match.
-          </p>
+        <div className="topbar">
+          <div className="brand">
+            <div className="badge">📊</div>
+            <div>
+              <h1>Resume Analyzer</h1>
+              <p className="subtitle">
+                Match score, ATS compliance, and tailored edits — in one pass.
+              </p>
+            </div>
+          </div>
+          <ThemeToggle />
         </div>
 
-        <div className="card">
-          <form onSubmit={handleSubmit}>
-            <ResumeUpload file={file} onFileChange={setFile} />
-            <JobDescriptionInput value={jobDescription} onChange={setJobDescription} />
+        <div className="layout">
+          <div className="card form-card">
+            <form onSubmit={handleSubmit}>
+              <ResumeUpload file={file} onFileChange={setFile} />
+              <JobDescriptionInput value={jobDescription} onChange={setJobDescription} />
 
-            <button className="submit-btn" type="submit" disabled={!canSubmit}>
-              {loading && <span className="spinner" />}
-              {loading ? "Analyzing..." : "Analyze Match"}
-            </button>
-          </form>
+              <button className="submit-btn" type="submit" disabled={!canSubmit}>
+                {loading && <span className="spinner" />}
+                {loading ? "Analyzing..." : "Analyze Match"}
+              </button>
+            </form>
 
-          {error && (
-            <p className="error">
-              <span>⚠️</span> {error}
-            </p>
-          )}
-          {result && <AnalysisResult result={result} />}
+            {error && (
+              <p className="error">
+                <span>⚠️</span> {error}
+              </p>
+            )}
+          </div>
+
+          <div className="card result-card">
+            {result ? <AnalysisResult result={result} /> : <EmptyState loading={loading} />}
+          </div>
         </div>
 
         <p className="footer-note">Powered by Gemini · Your files never leave this session</p>
